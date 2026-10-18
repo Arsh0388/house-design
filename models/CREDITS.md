@@ -1,6 +1,6 @@
 # 3D model credits
 
-From the Khronos glTF Sample Assets (https://github.com/KhronosGroup/glTF-Sample-Assets). Textures were resized for the web.
+From the Khronos glTF Sample Assets (https://github.com/KhronosGroup/glTF-Sample-Assets). Textures were resized for the web and each model is stored as a single .json glTF file.
 
 - GlamVelvetSofa: Eric Chadwick, © 2021 Wayfair, LLC. CC BY 4.0
 - SpecularSilkPouf: Eric Chadwick, © 2023 Wayfair, LLC. CC BY 4.0

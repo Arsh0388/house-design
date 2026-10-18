@@ -386,7 +386,7 @@ box(U, 54.05, 17.4, 54.15, 23.6, UP+5.6, 2.5, M.linen2, false);
 
 // =================================================================== REAL FURNITURE MODELS
 const gltfLoader = new GLTFLoader(); const glbCache = {};
-function loadGLB(f){ if (!glbCache[f]) glbCache[f] = gltfLoader.loadAsync('models/' + f + '.glb'); return glbCache[f]; }
+function loadGLB(f){ if (!glbCache[f]) glbCache[f] = gltfLoader.loadAsync('models/' + f + '.json'); return glbCache[f]; }
 async function applyVariant(gltf, root, name){
   const ext = gltf.parser.json.extensions && gltf.parser.json.extensions.KHR_materials_variants; if (!ext) return;
   const vi = ext.variants.findIndex(function(v){ return v.name === name; }); if (vi < 0) return;
