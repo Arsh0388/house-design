@@ -415,6 +415,8 @@ def bed3():
 MOVE, SOON, LATER = "Move-in", "Months 1–3", "Later"
 ROOMS = [
  dict(id="great-room", name="Great room", floor="Main floor", dims="14'-2\" × 11'-10\", open to above", scene=living,
+      photos=[("images/great-room-staged-1.jpg", "Staged listing photo: sectional facing the black-frame fireplace wall, two accent chairs by the window."),
+              ("images/great-room-staged-2.jpg", "Staged listing photo, second angle: sectional along the east side with a wood and marble coffee table.")],
       notes=["The sofa bed faces the electric fireplace on the south wall. The 65-inch TV mounts above the fireplace, so no media console takes up floor space.",
              "Skip a fixed coffee table. A pouf and a small side table move out of the way when the bed opens.",
              "The room is two storeys tall. Hang the sheer curtains from just under the upper window so the wall feels finished."],
@@ -636,6 +638,8 @@ nav.index a.nav3d{color:var(--brass); font-weight:500}
 .room-body{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:28px; align-items:start}
 .room-body.noscene{grid-template-columns:minmax(0,1fr)}
 figure{margin:0}
+.photos{display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap:18px}
+.photos img{display:block; width:100%; height:auto; border-radius:4px}
 svg.scene{display:block; width:100%; height:auto; border-radius:4px}
 figcaption{font-size:13px; color:var(--muted); margin-top:8px}
 .notes{display:grid; gap:14px; min-width:0}
@@ -692,6 +696,9 @@ def room_html(r):
         f'<td><span class="pill {PHASE_CLS[ph]}">{ph}</span></td></tr>' for n, s, w, p, ph in r["items"])
     checks = "".join(f'<li class="{k}"><b aria-hidden="true">{"✓" if k=="ok" else "!"}</b><span>{esc(t)}</span></li>' for k, t in r["checks"])
     notes = "".join(f"<li>{esc(n)}</li>" for n in r["notes"])
+    photos = ""
+    if r.get("photos"):
+        photos = '<div class="photos">' + "".join(f'<figure><img src="{esc(src)}" alt="{esc(cap)}" loading="lazy" width="1264" height="848"><figcaption>{esc(cap)}</figcaption></figure>' for src, cap in r["photos"]) + '</div>'
     fig = ""
     if r["scene"]:
         fig = f'<figure>{r["scene"]()}<figcaption>Illustration of the finished room, drawn in the palette. Proportions are approximate.</figcaption></figure>'
@@ -706,6 +713,7 @@ def room_html(r):
       <ul class="checks">{checks}</ul>
     </div>
   </div>
+  {photos}
   <div class="tbl"><table>
     <thead><tr><th>Item</th><th>Size</th><th>Where to look</th><th class="num">Est. CAD</th><th>When</th></tr></thead>
     <tbody>{rows}</tbody>
