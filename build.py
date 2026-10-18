@@ -627,7 +627,12 @@ svg.plan{display:block; width:100%; min-width:680px; height:auto}
 .room{display:grid; gap:22px; padding-block:44px; border-top:1px solid var(--line)}
 .room:first-of-type{border-top:0; padding-top:8px}
 .room-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 18px}
-.room-head .meta{font-family:var(--mono); font-size:13px; color:var(--muted)}
+.room-head .meta{font-family:var(--mono); font-size:13px; color:var(--muted); text-align:right}
+.link3d{font-family:var(--sans); font-size:14px; color:var(--brass); text-decoration:none; font-weight:500}
+.link3d:hover{text-decoration:underline}
+.btn{display:inline-block; margin-top:22px; background:var(--ink); color:var(--bg); text-decoration:none; font-weight:500; font-size:15px; padding:11px 20px; border-radius:999px}
+.btn:hover{background:var(--brass)}
+nav.index a.nav3d{color:var(--brass); font-weight:500}
 .room-body{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:28px; align-items:start}
 .room-body.noscene{grid-template-columns:minmax(0,1fr)}
 figure{margin:0}
@@ -679,6 +684,8 @@ SWATCHES = [("#EFE9DF", "Warm ivory", "#3D3428"), ("#D6CCBD", "Linen greige", "#
             ("#2B2826", "Soft charcoal", "#EFE9DF"), ("#B8925F", "Natural oak", "#2B2620"), ("#6B4A33", "Walnut", "#F4EDE2"),
             ("#B8964F", "Brushed brass", "#2B2620"), ("#4F5638", "Olive velvet", "#EFE9DF")]
 
+THREED = {'great-room':'great-room','dining':'dining','kitchen':'kitchen','office':'office','bonus':'bonus','primary':'primary','bedroom-3':'bedroom-3','bedroom-2':'entry'}
+
 def room_html(r):
     rows = "".join(
         f'<tr><td>{esc(n)}</td><td class="size">{esc(s)}</td><td>{esc(w)}</td><td class="num">{money(p)}</td>'
@@ -690,7 +697,7 @@ def room_html(r):
         fig = f'<figure>{r["scene"]()}<figcaption>Illustration of the finished room, drawn in the palette. Proportions are approximate.</figcaption></figure>'
     return f"""
 <article class="room" id="{r['id']}">
-  <div class="room-head"><div><div class="eyebrow">{esc(r['floor'])}</div><h3>{esc(r['name'])}</h3></div><div class="meta">{esc(r['dims'])}</div></div>
+  <div class="room-head"><div><div class="eyebrow">{esc(r['floor'])}</div><h3>{esc(r['name'])}</h3></div><div class="meta">{esc(r['dims'])}<br><a class="link3d" href="walkthrough.html#{THREED[r['id']]}">View this room in 3D →</a></div></div>
   <div class="room-body{'' if fig else ' noscene'}">
     {fig}
     <div class="notes">
@@ -744,7 +751,7 @@ page = f"""<title>Our Devon Home</title>
 <style>{CSS}</style>
 <nav class="index" aria-label="Sections"><div class="wrap">
   <span class="mark">Our Devon Home</span>
-  <a href="#style">Style</a><a href="#plans">Floor plans</a><a href="#rooms">Rooms</a><a href="#budget">Budget</a><a href="#checks">Before buying</a><a href="#photos">Staged photos</a>
+  <a href="walkthrough.html" class="nav3d">3D walk-through</a><a href="#style">Style</a><a href="#plans">Floor plans</a><a href="#rooms">Rooms</a><a href="#budget">Budget</a><a href="#checks">Before buying</a><a href="#photos">Staged photos</a>
 </div></nav>
 <main class="wrap">
 <section class="hero">
@@ -753,6 +760,7 @@ page = f"""<title>Our Devon Home</title>
       <div class="eyebrow">Furniture and decor plan · October 2026</div>
       <h1>Our Devon Home</h1>
       <p class="lede measure">How each room will be furnished: what to buy, where it goes, what it costs, and what to buy first. Layouts are drawn to scale from the builder's plans.</p>
+      <a class="btn" href="walkthrough.html">Walk through the house in 3D →</a>
     </div>
     <dl class="facts">
       <div><dt>Living space</dt><dd>2,245 sq ft</dd></div>
@@ -849,7 +857,7 @@ page = f"""<title>Our Devon Home</title>
 </section>
 
 <footer>
-  <p class="measure">Prepared October 18, 2026. Layouts are based on the builder's drawings, which can differ from the finished house, so measure before you order. Prices are estimates.</p>
+  <p class="measure">Prepared October 18, 2026. The 3D walk-through uses real 3D product models (sofa, chairs, pouf, plant, vase) from the Khronos glTF sample library, by Wayfair and others, under CC BY 4.0 and CC0. Layouts are based on the builder's drawings, which can differ from the finished house, so measure before you order. Prices are estimates.</p>
 </footer>
 </main>
 <script>

@@ -4,4 +4,4 @@ Room-by-room furniture and decor plan for our new house: to-scale layouts drawn 
 
 **View it:** https://arsh0388.github.io/house-design/
 
-`index.html` is the site. `build.py` generates it from the room data (`python3 build.py index.html`); edit the `ROOMS` list there to change items or prices.
+`index.html` is the plan and `walkthrough.html` is the 3D walk-through (furniture models in `models/`, credits in `models/CREDITS.md`). `build.py` generates it from the room data (`python3 build.py index.html`); edit the `ROOMS` list there to change items or prices.
